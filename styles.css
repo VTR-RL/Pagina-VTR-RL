@@ -3,6 +3,7 @@
     --secondary-color: #34a853;
     --dark-color: #202124;
     --light-color: #f8f9fa;
+    --error-color: #ea4335;
 }
 
 body {
@@ -11,6 +12,9 @@ body {
     padding: 0;
     background-color: var(--light-color);
     color: var(--dark-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -20,6 +24,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 #menu-btn {
@@ -35,11 +42,25 @@ nav ul {
     display: flex;
     list-style: none;
     gap: 1rem;
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
     color: white;
     text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+main {
+    flex: 1;
+    padding: 1rem;
 }
 
 .video-container, .video-wrapper {
@@ -47,6 +68,7 @@ nav a {
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
+    background: #000;
 }
 
 .video-container iframe, .video-wrapper iframe {
@@ -60,14 +82,43 @@ nav a {
 .video-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 .video-card {
     background: white;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.video-card h3 {
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.video-card p {
+    margin: 0;
+    padding: 0 1rem 1rem;
+    color: #555;
+}
+
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #install-btn {
@@ -77,6 +128,34 @@ nav a {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    display: none;
+}
+
+#install-btn:hover {
+    background-color: #2d8e47;
+}
+
+.offline-message {
+    background-color: var(--error-color);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -86,13 +165,14 @@ nav a {
     
     nav ul {
         display: none;
-        position: absolute;
+        position: fixed;
         top: 60px;
         left: 0;
         width: 100%;
         background-color: var(--primary-color);
         flex-direction: column;
         padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
     
     nav ul.show {
@@ -102,4 +182,173 @@ nav a {
     .video-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Estilos para PWA instalada */
+@media all and (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    header {
+        padding-top: calc(1rem + env(safe-area-inset-top));
+    }
+}
+/* Estilos adicionales para las nuevas páginas */
+
+/* Sección de recursos */
+.resources {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.resource-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.resource-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.resource-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.resource-card p {
+    flex-grow: 1;
+    color: #666;
+}
+
+.resource-card a {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.resource-card a:hover {
+    background-color: #3367d6;
+}
+
+/* Área de práctica de JS */
+.practice {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.code-editor {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.editor-header {
+    background: #3c3c3c;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.title {
+    color: #a0a0a0;
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+#js-code {
+    width: 100%;
+    height: 200px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    resize: vertical;
+    outline: none;
+}
+
+#run-code {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#run-code:hover {
+    background-color: #2d8e47;
+}
+
+.output {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    min-height: 50px;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #3c3c3c;
+}
+
+.error {
+    color: #f44336;
+}
+
+.return-value {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.practice-tips {
+    background: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.practice-tips h3 {
+    margin-top: 0;
+    color: var(--dark-color);
+}
+
+.practice-tips ul {
+    padding-left: 1.5rem;
+}
+
+.practice-tips li {
+    margin-bottom: 0.5rem;
 }

@@ -1,0 +1,32 @@
+{
+    "html": [
+        {
+            "id": "html1",
+            "title": "Introducción a HTML",
+            "desc": "Aprende los fundamentos de HTML5",
+            "url": "https://www.youtube.com/embed/mNbnV3aN3KA"
+        },
+        {
+            "id": "html2",
+            "title": "Estructura básica de un documento HTML",
+            "desc": "Cómo organizar tu código HTML correctamente",
+            "url": "https://www.youtube.com/embed/rbuYextNUOY"
+        }
+    ],
+    "css": [
+        {
+            "id": "css1",
+            "title": "Introducción a CSS",
+            "desc": "Fundamentos de estilos con CSS",
+            "url": "https://www.youtube.com/embed/OWKXEJN67FE"
+        }
+    ],
+    "js": [
+        {
+            "id": "js1",
+            "title": "JavaScript para principiantes",
+            "desc": "Primeros pasos en programación con JavaScript",
+            "url": "https://www.youtube.com/embed/PkZNo7MFNFg"
+        }
+    ]
+}

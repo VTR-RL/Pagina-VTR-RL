@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLearn - JavaScript</title>
+    <meta name="description" content="Aprende JavaScript con nuestros videos tutoriales">
+    <meta name="theme-color" content="#317EFB">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <header>
+        <h1>CodeLearn - JavaScript</h1>
+        <nav>
+            <button id="menu-btn">☰</button>
+            <ul id="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="html.html">HTML</a></li>
+                <li><a href="css.html">CSS</a></li>
+                <li><a href="js.html">JavaScript</a></li>
+                <li><a href="about.html">Acerca de</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Tutoriales de JavaScript</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <h3>JavaScript para principiantes</h3>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/PkZNo7MFNFg" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p>Primeros pasos en programación con JavaScript</p>
+                </div>
+                <div class="video-card">
+                    <h3>ES6+ Moderno</h3>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/7WkfzokHGqo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p>Características modernas de JavaScript</p>
+                </div>
+                <div class="video-card">
+                    <h3>Manipulación del DOM</h3>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/0ik6X4DJKCc" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p>Cómo interactuar con elementos de la página</p>
+                </div>
+                <div class="video-card">
+                    <h3>Async/Await</h3>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/6O8Xk43h7_4" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p>Trabajo con operaciones asíncronas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="practice">
+            <h2>Área de práctica</h2>
+            <div class="code-editor">
+                <div class="editor-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="title">script.js</span>
+                </div>
+                <textarea id="js-code" placeholder="Escribe tu código JavaScript aquí..."></textarea>
+                <button id="run-code">Ejecutar código</button>
+                <div class="output" id="js-output"></div>
+            </div>
+            <div class="practice-tips">
+                <h3>Ejercicios sugeridos:</h3>
+                <ul>
+                    <li>Crea una función que sume dos números</li>
+                    <li>Implementa un contador que aumente con cada clic</li>
+                    <li>Crea un array y muéstralo en la consola</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CodeLearn - Todos los derechos reservados</p>
+        <button id="install-btn">Instalar App</button>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Script específico para la página de JavaScript
+        document.getElementById('run-code').addEventListener('click', () => {
+            const code = document.getElementById('js-code').value;
+            const output = document.getElementById('js-output');
+            
+            try {
+                // Limpiar el output anterior
+                output.innerHTML = '';
+                
+                // Redirigir console.log al output
+                const originalLog = console.log;
+                console.log = function(...args) {
+                    originalLog.apply(console, args);
+                    args.forEach(arg => {
+                        output.innerHTML += `<div>${typeof arg === 'object' ? JSON.stringify(arg) : arg}</div>`;
+                    });
+                };
+                
+                // Ejecutar el código
+                const result = new Function(code)();
+                
+                // Si la función devuelve algo, mostrarlo
+                if (result !== undefined) {
+                    output.innerHTML += `<div class="return-value">→ ${result}</div>`;
+                }
+                
+                // Restaurar console.log
+                console.log = originalLog;
+            } catch (error) {
+                output.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
